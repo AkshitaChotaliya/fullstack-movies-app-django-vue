@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:14
+    restart: always
+    ports:
+      - "5440:5432"
+    environment:
+      POSTGRES_DB: movie_db
+      POSTGRES_USER: movie_user
+      POSTGRES_PASSWORD: movie_pass
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: ["/app/wait-for-db.sh", "python", "manage.py", "runserver", "0.0.0.0:8010"]
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8010:8010"
+    depends_on:
+      - db
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=your-secret-key
+      - DB_NAME=movie_db
+      - DB_USER=movie_user
+      - DB_PASSWORD=movie_pass
+      - DB_HOST=db
+      - DB_PORT=5432
+
+  frontend:
+    build:
+      context: ./frontend/movie-app
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
