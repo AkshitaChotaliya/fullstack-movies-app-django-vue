@@ -3,9 +3,6 @@
 </script>
 
 <template>
-  <div class="text-3xl font-bold text-blue-600">
-    Tailwind is working 🎉
-  </div>
   <router-view />
   <!-- <div>
     <a href="https://vite.dev" target="_blank">
