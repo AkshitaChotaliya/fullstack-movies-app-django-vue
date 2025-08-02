@@ -11,5 +11,4 @@ router.register(r'genres', GenreViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('person/<str:role>/<int:id>/', person_detail, name='person-detail'),
-
 ]

@@ -37,7 +37,6 @@ const fetchMovie = async () => {
   movie.value = res.data
   console.log('<---- movie.value: ---->', movie.value)
 }
-
 onMounted(fetchMovie)
 </script>
 

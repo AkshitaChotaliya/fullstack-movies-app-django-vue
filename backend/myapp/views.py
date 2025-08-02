@@ -8,6 +8,7 @@ from drf_yasg import openapi
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from .error import error_response
 
 
 
@@ -22,6 +23,8 @@ class MovieViewSet(viewsets.ModelViewSet):
             openapi.Parameter('genres__name', openapi.IN_QUERY, description="Genre name", type=openapi.TYPE_STRING),
             openapi.Parameter('director__name', openapi.IN_QUERY, description="Director name", type=openapi.TYPE_STRING),
             openapi.Parameter('release_year', openapi.IN_QUERY, description="Release year", type=openapi.TYPE_INTEGER),
+            openapi.Parameter('release_year__gte', openapi.IN_QUERY, description="Release year greater than or equal to", type=openapi.TYPE_INTEGER),
+
         ]
     )
     def list(self, request, *args, **kwargs):
